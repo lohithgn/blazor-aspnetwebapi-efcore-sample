@@ -1,0 +1,52 @@
+﻿@page "/sauces"
+@inherits BasePage
+@rendermode InteractiveServer
+
+<PageTitle>Sauces</PageTitle>
+
+<div style="margin-top:1em">
+    <FluentBreadcrumb>
+        <FluentBreadcrumbItem Href="/">
+            Home
+            <FluentIcon Value="@(new Icons.Regular.Size20.Home())" Color="@Color.Neutral" Slot="start" />
+        </FluentBreadcrumbItem>
+        <FluentBreadcrumbItem>
+            Sauces
+            <FluentIcon Value="@(new Icons.Regular.Size20.BowlSalad())" Color="@Color.Neutral" Slot="start" />
+        </FluentBreadcrumbItem>
+    </FluentBreadcrumb>
+</div>
+<div style="margin-top:1.5em">
+    <h1>Sauces</h1>
+</div>
+<div style="margin-bottom:3em">
+    <p>The best sauces in the world.</p>
+</div>
+
+@if (_sauces == null)
+{
+    <ProgressLoader ProgressText="Loading sauces..." Columns="4"></ProgressLoader>
+}
+else
+{
+    <div style="border-top:1px solid lightgrey;margin-bottom:3em">
+        <FluentToolbar Style="margin-top:0;padding-top:0">
+            <FluentButton Appearance="Appearance.Stealth" IconStart="@(new Icons.Regular.Size12.Add())" 
+                          @onclick="OnAddNewSauceClick" Title="Add a sauce">Add a sauce</FluentButton>
+        </FluentToolbar>
+    </div>
+
+    <FluentDataGrid Id="saucesGrid" Items=@_sauces TGridItem=SauceEntity>
+        <TemplateColumn Title="Name" Sortable="true">
+            <span @onclick=@(() => OnEditSauceClick(context)) style="font-weight:bold;text-decoration:underline;cursor:pointer">@context.Name</span>
+        </TemplateColumn>
+        <PropertyColumn Title="Vegan" Property="@(c => c!.IsVegan ? "Yes" : "No")" Sortable="true" Align=Align.Start />
+        <PropertyColumn Title="Created" Property="@(c => c!.Created)" Format="MMM dd, yyyy" Sortable="true" Align=Align.Start />
+        <PropertyColumn Title="Modified" Property="@(c => c!.Modified)" Format="MMM dd, yyyy" Sortable="true" Align=Align.Start />
+        <TemplateColumn Title="Action">
+            <FluentIcon Value="@(new Icons.Regular.Size20.Delete())" Title="Delete sauce"
+                        Color="Color.Error" Style="cursor:pointer"
+                        @onclick="@(() => OnDeleteSauceClick(context))" />
+        </TemplateColumn>
+    </FluentDataGrid>
+}

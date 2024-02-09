@@ -1,0 +1,99 @@
+﻿@implements IDialogContentComponent<PizzaEntity>
+@rendermode InteractiveServer
+
+<FluentDialogBody>
+    @if (isBusy)
+    {
+        <FluentProgressRing></FluentProgressRing>
+    }
+    else
+    {
+        <FluentStack Orientation="Orientation.Vertical">
+            <FluentTextField @bind-Value="@Content.Name">
+                <LabelTemplate>
+                    <FluentLabel Weight="FontWeight.Bold">
+                        <FluentStack Orientation="Orientation.Horizontal">
+                            <span>Name</span>
+                            <FluentLabel Color="Color.Error">*</FluentLabel>
+                        </FluentStack>
+                    </FluentLabel>
+                </LabelTemplate>
+            </FluentTextField>
+            <FluentSpacer Width="10" />
+            <FluentTextArea Cols="60" Rows="5" @bind-Value="@Content.Description">
+                <LabelTemplate>
+                    <FluentLabel Weight="FontWeight.Bold">
+                        Description
+                    </FluentLabel>
+                </LabelTemplate>
+            </FluentTextArea>
+            <FluentSpacer Width="10" />
+
+            @if (Content.Id == Guid.Empty)
+            {
+                <FluentSelect TOption="SauceEntity"
+                              Items="_sauces"
+                              OptionValue="@(s => s.Id.ToString())"
+                              OptionText="@(s => s.Name)"
+                              @bind-SelectedOption="@Content.Sauce">
+                    <LabelTemplate>
+                        <FluentLabel Weight="FontWeight.Bold">
+                            Sauce
+                        </FluentLabel>
+                    </LabelTemplate>
+                </FluentSelect>
+
+                <FluentSpacer Width="10" />
+                <FluentLabel Weight="FontWeight.Bold">Topping(s)</FluentLabel>
+                <FluentSpacer Width="10" />
+                <FluentStack Orientation="Orientation.Vertical">
+                    @foreach (var topping in _toppings!)
+                    {
+                        bool isChecked = Content.Toppings!.Contains(topping);
+                        <FluentCheckbox @bind-Value:get="isChecked"
+                                        @bind-Value:set="c => OnToppingSelected(topping,c)">
+                            <LabelTemplate>
+                                <FluentLabel>@topping.Name</FluentLabel>
+                            </LabelTemplate>
+                        </FluentCheckbox>
+                    }
+                </FluentStack>
+                @string.Join(", ", Content.Toppings!.Select(t => t.Name))
+            }
+            @if (Content.Id != Guid.Empty)
+            {
+                <FluentSpacer Width="10" />
+                <FluentLabel Weight="FontWeight.Bold">Sauce</FluentLabel>
+                <FluentSpacer Width="10" />
+                <FluentLabel>@Content.Sauce!.Name</FluentLabel>
+                <FluentSpacer Width="10" />
+                <FluentLabel Weight="FontWeight.Bold">Topping(s)</FluentLabel>
+                <FluentSpacer Width="10" />
+                <FluentStack Orientation="Orientation.Vertical">
+                    @foreach (var topping in Content.Toppings)
+                    {
+                        <FluentStack Orientation="Orientation.Horizontal">
+                            <FluentIcon Value="@(new Icons.Filled.Size24.CheckboxChecked())" Color="Color.Accent" />
+                            <FluentLabel>@topping.Name</FluentLabel>
+                        </FluentStack>
+                            
+                    }
+                </FluentStack>
+                <FluentSpacer Width="10" />
+                <FluentStack Orientation="Orientation.Vertical">
+                    <FluentLabel Weight="FontWeight.Bold">Created</FluentLabel>
+                    <FluentLabel>@Content.Created.ToString("dd-MM-yyyy")</FluentLabel>
+                </FluentStack>
+
+                @if (Content.Modified.HasValue)
+                {
+                    <FluentSpacer Width="10" />
+                    <FluentStack Orientation="Orientation.Vertical">
+                        <FluentLabel Weight="FontWeight.Bold">Modified</FluentLabel>
+                        <FluentLabel>@Content.Modified?.ToString("dd-MM-yyyy")</FluentLabel>
+                    </FluentStack>
+                }
+            }
+        </FluentStack>
+    }
+</FluentDialogBody>

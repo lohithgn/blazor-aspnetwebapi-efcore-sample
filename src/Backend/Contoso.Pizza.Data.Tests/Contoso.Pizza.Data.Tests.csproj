@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="xunit" Version="2.6.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contoso.Pizza.Data.Models\Contoso.Pizza.Data.Models.csproj" />
+    <ProjectReference Include="..\Contoso.Pizza.Data\Contoso.Pizza.Data.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+﻿<FluentStack>
+    <FluentProgressRing style="width: 15px; height: 15px;"></FluentProgressRing>
+    <div>@ProgressText</div>
+</FluentStack>
+<FluentGrid Style="margin-top:1em">
+    @for(var rowCounter = 0; rowCounter < 5; rowCounter++)
+    {
+        @for(var colCounter = 0; colCounter < Columns; colCounter++)
+        {
+            <FluentGridItem lg="3">
+                <FluentSkeleton Width="15em" Height="10px;"></FluentSkeleton>
+            </FluentGridItem>
+        }
+    }
+</FluentGrid>
+
+
+@code {
+
+    [Parameter]
+    public string ProgressText { get; set; } = "Loading...";
+
+    [Parameter]
+    public int Columns { get; set; } = 5;
+}

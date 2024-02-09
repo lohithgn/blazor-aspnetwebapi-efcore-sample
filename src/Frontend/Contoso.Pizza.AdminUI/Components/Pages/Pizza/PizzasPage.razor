@@ -1,0 +1,54 @@
+﻿@page "/pizzas"
+@inherits BasePage
+@rendermode InteractiveServer
+
+<PageTitle>Pizzas</PageTitle>
+
+<div style="margin-top:1em">
+    <FluentBreadcrumb>
+        <FluentBreadcrumbItem Href="/">
+            Home
+            <FluentIcon Value="@(new Icons.Regular.Size20.Home())" Color="@Color.Neutral" Slot="start" />
+        </FluentBreadcrumbItem>
+        <FluentBreadcrumbItem>
+            Pizzas
+            <FluentIcon Value="@(new Icons.Regular.Size20.FoodPizza())" Color="@Color.Neutral" Slot="start" />
+        </FluentBreadcrumbItem>
+    </FluentBreadcrumb>
+</div>
+<div style="margin-top:1.5em">
+    <h1>Pizzas</h1>
+</div>
+<div style="margin-bottom:3em">
+    <p>The best sauces in the world.</p>
+</div>
+@if (_pizzas == null)
+{
+    <ProgressLoader ProgressText="Loading pizzas..." Columns="4"></ProgressLoader>
+}
+else
+{
+    <div style="border-top:1px solid lightgrey;margin-bottom:3em">
+        <FluentToolbar Style="margin-top:0;padding-top:0">
+            <FluentButton Appearance="Appearance.Stealth" IconStart="@(new Icons.Regular.Size12.Add())"
+                          @onclick="OnAddNewPizzaClick" Title="Add a sauce">Add a pizza</FluentButton>
+        </FluentToolbar>
+    </div>
+
+    <FluentDataGrid Id="saucesGrid" Items=@_pizzas TGridItem=PizzaEntity>
+        <TemplateColumn Title="Name" Sortable="true">
+            <span @onclick=@(() => OnEditPizzaClick(context)) style="font-weight:bold;text-decoration:underline;cursor:pointer">@context.Name</span>
+        </TemplateColumn>
+        <PropertyColumn Title="Sauce" Property="@(c => c!.Sauce!.Name)" Sortable="true" Align=Align.Start />
+        <TemplateColumn Title="Toppings" Sortable="true" Align="Align.Start">
+            @string.Join(",",context.Toppings.Select(t => t.Name))
+        </TemplateColumn>
+        <PropertyColumn Title="Created" Property="@(c => c!.Created)" Format="MMM dd, yyyy" Sortable="true" Align=Align.Start />
+        <PropertyColumn Title="Modified" Property="@(c => c!.Modified)" Format="MMM dd, yyyy" Sortable="true" Align=Align.Start />
+        <TemplateColumn Title="Action">
+            <FluentIcon Value="@(new Icons.Regular.Size20.Delete())" Title="Delete sauce"
+                        Color="Color.Error" Style="cursor:pointer"
+                        @onclick="@(() => OnDeletePizzaClick(context))" />
+        </TemplateColumn>
+    </FluentDataGrid>
+}

@@ -1,0 +1,54 @@
+﻿@implements IDialogContentComponent<ToppingEntity>
+
+<FluentDialogBody>
+    <FluentStack Orientation="Orientation.Vertical">
+        <FluentTextField @bind-Value="@Content.Name">
+            <LabelTemplate>
+                <FluentLabel Weight="FontWeight.Bold">
+                    <FluentStack Orientation="Orientation.Horizontal">
+                        <span>Name</span>
+                        <FluentLabel Color="Color.Error">*</FluentLabel>
+                    </FluentStack>
+                </FluentLabel>
+            </LabelTemplate>
+        </FluentTextField>
+        <FluentSpacer Width="10" />
+        <FluentTextArea Cols="60" Rows="5" @bind-Value="@Content.Description">
+            <LabelTemplate>
+                <FluentLabel Weight="FontWeight.Bold">
+                    Description
+                </FluentLabel>
+            </LabelTemplate>
+        </FluentTextArea>
+        <FluentSpacer Width="10" />
+        <FluentNumberField @bind-Value="@Content.Calories">
+            <LabelTemplate>
+                <FluentLabel Weight="FontWeight.Bold">
+                    Calories
+                </FluentLabel>
+            </LabelTemplate>
+        </FluentNumberField>
+        @if (Content.Id != Guid.Empty)
+        {
+            <FluentSpacer Width="10" />
+            <FluentStack Orientation="Orientation.Vertical">
+                <FluentLabel Weight="FontWeight.Bold">Created</FluentLabel>
+                <FluentLabel>@Content.Created.ToString("dd-MM-yyyy")</FluentLabel>
+            </FluentStack>
+
+            @if (Content.Modified.HasValue)
+            {
+                <FluentSpacer Width="10" />
+                <FluentStack Orientation="Orientation.Vertical">
+                    <FluentLabel Weight="FontWeight.Bold">Modified</FluentLabel>
+                    <FluentLabel>@Content.Modified?.ToString("dd-MM-yyyy")</FluentLabel>
+                </FluentStack>
+            }
+        }
+    </FluentStack>
+</FluentDialogBody>
+
+@code {
+    [Parameter]
+    public ToppingEntity Content { get; set; } = default!;
+}

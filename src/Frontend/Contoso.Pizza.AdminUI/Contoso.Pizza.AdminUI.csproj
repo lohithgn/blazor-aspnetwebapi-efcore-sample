@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <Version>4.0.0</Version>
+    <AssemblyVersion>4.0.0.23318</AssemblyVersion>
+    <FileVersion>4.0.0.23318</FileVersion>
+    <InformationalVersion>4.0.0.23318</InformationalVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Update="Data\app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-* " />
+	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.*-*" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Contoso.Pizza.AdminUI.Services\Contoso.Pizza.AdminUI.Services.csproj" />
+  </ItemGroup>
+</Project>

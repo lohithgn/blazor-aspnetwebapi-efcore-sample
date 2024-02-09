@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <UserSecretsId>979905d7-be66-42d9-8a01-59a24f5265d1</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contoso.Pizza.AdminApi.Services\Contoso.Pizza.AdminApi.Services.csproj" />
+    <ProjectReference Include="..\Contoso.Pizza.Data.Models\Contoso.Pizza.Data.Models.csproj" />
+    <ProjectReference Include="..\Contoso.Pizza.Data\Contoso.Pizza.Data.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,6 @@
+@Contoso.Pizza.AdminApi.Minimal_HostAddress = http://localhost:5237
+
+GET {{Contoso.Pizza.AdminApi.Minimal_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,15 @@
+﻿@https-host = https://localhost:7110
+
+GET {{https-host}}/api/sauces
+
+###
+
+POST {{https-host}}/api/sauces
+Content-Type: application/json
+
+{
+  "name":"New Sauce 1",
+  "description":"New Sauce 1 description"
+}
+
+###
